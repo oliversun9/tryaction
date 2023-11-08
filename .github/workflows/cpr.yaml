@@ -1,0 +1,22 @@
+name: Create Release PR
+on:
+  workflow_dispatch:
+
+jobs:
+  prepare:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository code
+        uses: actions/checkout@v4
+      - name: Create PR
+        uses: oliversun9/buf/.github/actions/create-pr-action@main
+        id: create_pr
+        with:
+          branch: hello
+          commit_message: message
+          title: title
+          body: body
+          token: ${{ secrets.GITHUB_TOKEN }}
+          # assignees: oliversun09, oliversun9
+      - run: echo "pr created at ${{ steps.create_pr.outputs.url }}"
+      # placeholder for slack notification
